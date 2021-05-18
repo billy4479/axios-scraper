@@ -3,6 +3,7 @@
   import MarkTable from './Components/MarkTable.svelte';
   import DarkModeToggle from './Components/DarkModeToggle.svelte';
   import { data } from './store';
+  import './tailwind.css';
 
   function reset() {
     data.set([]);
@@ -24,15 +25,7 @@
   >
 {/if}
 
-<style global type="text/postcss">
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-
-  .dark {
-    @apply bg-gray-800 text-gray-100;
-  }
-
+<style global>
   body {
     width: 85%;
     margin: 5% auto;
