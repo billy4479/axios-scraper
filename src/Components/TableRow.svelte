@@ -39,7 +39,7 @@
   <td class="subject">{subject}</td>
   <td>
     <div class="average">
-      <Mark bind:mark={$av} showValue={false} expand={true} />
+      <Mark bind:mark={$av} isAverage={true} />
     </div>
   </td>
   <td class="mark-container">

@@ -2,14 +2,9 @@
   import Input from './Components/Input.svelte';
   import MarkTable from './Components/MarkTable.svelte';
   import Header from './Components/Header.svelte';
-  import { data, average } from './store';
+  import { data } from './store';
   import './tailwind.css';
   import './styles.css';
-
-  function reset() {
-    data.set([]);
-    average.set(new Map());
-  }
 
 </script>
 
@@ -19,7 +14,6 @@
   <Input />
 {:else}
   <MarkTable />
-  <button on:click={reset}>Reset</button>
 {/if}
 
 <style global type="postcss">

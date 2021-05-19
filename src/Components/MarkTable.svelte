@@ -2,7 +2,8 @@
   import MarkAndValue from '../Models/markAndValue';
   import TableRow from './TableRow.svelte';
   import AverageRow from './AverageRow.svelte';
-  import { data, average } from '../store';
+  import Help from './Help.svelte';
+  import { average, data } from '../store';
 
   const markMap = new Map<string, MarkAndValue[]>();
 
@@ -12,6 +13,11 @@
     if (!markMap.has(v.subject)) markMap.set(v.subject, []);
     markMap.get(v.subject).push(new MarkAndValue(m, va));
   });
+
+  function reset() {
+    data.set([]);
+    average.set(new Map());
+  }
 
 </script>
 
@@ -30,6 +36,8 @@
     </tbody>
   </table>
 </div>
+<button on:click={reset}>Reset</button>
+<Help what="marks" />
 
 <style>
   table {

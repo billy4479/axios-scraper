@@ -26,7 +26,11 @@
   <td class="subject">Media</td>
   <td>
     <div class="average">
-      <Mark mark={new MarkAndValue(av, 100)} showValue={false} expand={true} />
+      <Mark
+        mark={new MarkAndValue(av, 100)}
+        isAverage={true}
+        isAverageRow={true}
+      />
     </div>
   </td>
   <td class="mark-container" />

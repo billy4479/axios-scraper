@@ -2,6 +2,16 @@
   @apply m-5 p-5 pt-3 pb-3 rounded shadow;
 }
 
+input[type='file']::file-selector-button {
+  border: none;
+  transition-duration: 200ms;
+  @apply m-3 ml-0 px-3 py-2 shadow rounded;
+}
+
+.dark input[type='file']::file-selector-button {
+  @apply bg-gray-700 hover:bg-gray-800 text-white;
+}
+
 input[type='submit'],
 button {
   @apply m-3 ml-0 px-3 py-2 shadow rounded;

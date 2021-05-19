@@ -11,7 +11,7 @@
 
 <button on:click|preventDefault={toggleHelp}>Help</button>
 {#if showHelp}
-  <div class="text-left stuff">
+  <div class="text-left stuff container">
     {#if what === 'input'}
       <ol>
         <li>
@@ -28,6 +28,23 @@
         </li>
         <li>Clicca su "Calcola Media"!</li>
       </ol>
+    {:else if what === 'marks'}
+      Clicca su un voto per rendere il suo valore 0%. <br />
+      Legenda: <br />
+      <ul>
+        <li>
+          <div class="bg-red-600 box" />
+          : Insufficiente
+        </li>
+        <li>
+          <div class="bg-green-600 box" />
+          : Sufficiente
+        </li>
+        <li>
+          <div class="bg-blue-700 box" />
+          : Non fa media
+        </li>
+      </ul>
     {/if}
   </div>
 {/if}
@@ -37,8 +54,15 @@
     list-style: decimal;
   }
 
-  div {
+  .container {
     @apply pl-10;
+  }
+
+  .box {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    margin-left: 1em;
   }
 
 </style>

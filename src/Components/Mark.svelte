@@ -2,13 +2,14 @@
   import type MarkAndValue from '../Models/markAndValue';
 
   export let mark: MarkAndValue;
-  export let showValue: boolean = true;
-  export let expand: boolean = false;
+  export let isAverage = false;
+  export let isAverageRow = false;
 
   const actualValue = mark.value;
 
   function toggleMakesAverage() {
-    if (showValue) mark.value = mark.value === actualValue ? 0 : actualValue;
+    if (!(isAverage && Number.isNaN(mark.mark)) && !isAverageRow)
+      mark.value = mark.value === actualValue ? 0 : actualValue;
   }
 
 </script>
@@ -16,12 +17,12 @@
 <div
   class:red={mark.mark < 6}
   class="text-gray-100"
-  class:expand
+  class:expand={isAverage}
   class:no-average={mark.value === 0}
   on:click={toggleMakesAverage}
-  class:select-none={showValue}
+  class:select-none={!isAverage}
 >
-  {#if showValue}
+  {#if !isAverage}
     {mark.mark}
     <br />
     {mark.value}%
