@@ -16,19 +16,19 @@
 </script>
 
 <form>
+  <div class="m-5">
+    <input class="stuff" type="file" bind:files={file} />
+  </div>
+
   <textarea
     bind:value={html}
     name="html-input"
-    cols="30"
+    cols="10"
     rows="10"
     class="stuff"
     placeholder="Incolla l'HTML qui..."
     autocomplete="off"
   />
-
-  <div class="m-5">
-    <input class="stuff" type="file" bind:files={file} />
-  </div>
 
   <input
     type="submit"
@@ -47,13 +47,14 @@
   }
 
   textarea {
-    width: 100%;
+    width: 50%;
     resize: none;
     overflow: auto;
+    margin: 2.5rem auto;
+    display: block;
   }
 
   div {
-    width: 100%;
     display: flex;
     flex-direction: row;
     place-content: center;
@@ -61,6 +62,7 @@
 
   input[type='file'] {
     display: block;
+    margin: 0;
   }
 
   input[type='submit'] {
