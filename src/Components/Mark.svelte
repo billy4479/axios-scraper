@@ -1,13 +1,26 @@
 <script lang="ts">
-  import type MarkAndValue from 'src/Models/markAndValue';
+  import type MarkAndValue from '../Models/markAndValue';
 
   export let mark: MarkAndValue;
   export let showValue: boolean = true;
   export let expand: boolean = false;
 
+  const actualValue = mark.value;
+
+  function toggleMakesAverage() {
+    mark.value = mark.value === actualValue ? 0 : actualValue;
+  }
+
 </script>
 
-<div class:red={mark.mark < 6} class="text-gray-100" class:expand>
+<div
+  class:red={mark.mark < 6}
+  class="text-gray-100"
+  class:expand
+  class:no-average={mark.value === 0}
+  on:click={toggleMakesAverage}
+  class:select-none={showValue}
+>
   {#if showValue}
     {mark.mark}
     <br />
@@ -26,6 +39,7 @@
     display: grid;
     place-content: center;
     border: solid 1px gray;
+    cursor: pointer;
   }
 
   .red {
@@ -36,6 +50,10 @@
     width: 100%;
     font-weight: bold;
     @apply underline;
+  }
+
+  .no-average {
+    @apply bg-blue-700;
   }
 
 </style>

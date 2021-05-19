@@ -21,7 +21,6 @@
       <th>Materia</th>
       <th>Media</th>
       <th>Voti</th>
-      <th>Fa media?</th>
     </thead>
     <tbody>
       {#each Array.from(markMap.keys()) as sub}

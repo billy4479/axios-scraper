@@ -2,34 +2,34 @@
   import { average } from '../store';
   import MarkAndValue from '../Models/markAndValue';
   import Mark from './Mark.svelte';
+  import { writable } from 'svelte/store';
 
   export let marks: MarkAndValue[];
   export let subject: string;
   let makesAverage: boolean = true;
-  let av: number = 0;
 
-  function computeAverage(): number {
+  let marksStore = writable(marks);
+  let av = writable<MarkAndValue>(computeAverage());
+
+  marksStore.subscribe(() => {
+    av.set(computeAverage());
+  });
+  av.subscribe((v) => {
+    average.update((c) => c.set(subject, v));
+  });
+
+  function computeAverage(): MarkAndValue {
     let markSum = 0;
     let valueSum = 0;
 
-    marks.forEach((v) => {
+    $marksStore.forEach((v) => {
       markSum += v.mark * v.value;
       valueSum += v.value;
     });
 
-    av = Math.round((markSum / valueSum) * 100) / 100;
-
-    average.update((c) =>
-      c.set(subject, new MarkAndValue(av, makesAverage ? 100 : 0))
-    );
-
-    return av;
-  }
-
-  function toggleMakesAverage() {
-    makesAverage = !makesAverage;
-    average.update((c) =>
-      c.set(subject, new MarkAndValue(av, makesAverage ? 100 : 0))
+    return new MarkAndValue(
+      Math.round((markSum / valueSum) * 100) / 100,
+      makesAverage ? 100 : 0
     );
   }
 
@@ -39,20 +39,13 @@
   <td class="subject">{subject}</td>
   <td>
     <div class="average">
-      <Mark
-        mark={new MarkAndValue(computeAverage(), 100)}
-        showValue={false}
-        expand={true}
-      />
+      <Mark bind:mark={$av} showValue={false} expand={true} />
     </div>
   </td>
   <td class="mark-container">
-    {#each marks as m}
-      <Mark mark={m} />
+    {#each $marksStore as m}
+      <Mark bind:mark={m} />
     {/each}
-  </td>
-  <td on:click={toggleMakesAverage}>
-    <input type="checkbox" bind:checked={makesAverage} />
   </td>
 </tr>
 
