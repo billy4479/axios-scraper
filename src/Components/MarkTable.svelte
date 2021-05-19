@@ -1,7 +1,8 @@
 <script lang="ts">
   import MarkAndValue from '../Models/markAndValue';
   import TableRow from './TableRow.svelte';
-  import { data } from '../store';
+  import AverageRow from './AverageRow.svelte';
+  import { data, average } from '../store';
 
   const markMap = new Map<string, MarkAndValue[]>();
 
@@ -20,11 +21,13 @@
       <th>Materia</th>
       <th>Media</th>
       <th>Voti</th>
+      <th>Fa media?</th>
     </thead>
     <tbody>
       {#each Array.from(markMap.keys()) as sub}
         <TableRow subject={sub} marks={markMap.get(sub)} />
       {/each}
+      <AverageRow />
     </tbody>
   </table>
 </div>

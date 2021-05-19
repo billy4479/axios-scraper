@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { average } from '../store';
   import MarkAndValue from '../Models/markAndValue';
   import Mark from './Mark.svelte';
 
   export let marks: MarkAndValue[];
   export let subject: string;
+  let makesAverage: boolean = true;
+  let av: number = 0;
 
   function computeAverage(): number {
     let markSum = 0;
@@ -14,7 +17,20 @@
       valueSum += v.value;
     });
 
-    return Math.round((markSum / valueSum) * 100) / 100;
+    av = Math.round((markSum / valueSum) * 100) / 100;
+
+    average.update((c) =>
+      c.set(subject, new MarkAndValue(av, makesAverage ? 100 : 0))
+    );
+
+    return av;
+  }
+
+  function toggleMakesAverage() {
+    makesAverage = !makesAverage;
+    average.update((c) =>
+      c.set(subject, new MarkAndValue(av, makesAverage ? 100 : 0))
+    );
   }
 
 </script>
@@ -34,6 +50,9 @@
     {#each marks as m}
       <Mark mark={m} />
     {/each}
+  </td>
+  <td on:click={toggleMakesAverage}>
+    <input type="checkbox" bind:checked={makesAverage} />
   </td>
 </tr>
 
