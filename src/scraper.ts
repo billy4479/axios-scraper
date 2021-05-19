@@ -15,11 +15,19 @@ export default function scrape(html: string) {
     subjects.add(sub);
 
     const markTR = tr.children('td:nth-child(4)');
-    const mark = parseFloat(markTR.text());
-    const valueArr = markTR.attr('data-original-title').split('<br>');
-    const value = 100;
-    if (valueArr.length === 3) {
-      parseFloat(valueArr[1].match(/\d\d/)[0]);
+    let mark = parseFloat(markTR.text());
+    if (Number.isNaN(mark)) {
+      mark = 0;
+    }
+
+    let value = 100;
+    try {
+      const valueArr = markTR.attr('data-original-title').split('<br>');
+      if (valueArr.length === 3) {
+        value = parseFloat(valueArr[1].match(/\d\d/)[0]);
+      }
+    } catch {
+      value = 0;
     }
 
     const m = new Mark(mark, value, sub);

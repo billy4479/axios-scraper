@@ -1,12 +1,7 @@
 <script lang="ts">
-  // import { onMount } from 'svelte';
   import { darkMode } from '../store';
 
   const doc = document.getElementsByTagName('html')[0];
-
-  // onMount(() => {
-  //   darkMode.set(localStorage.getItem('darkMode') === 'dark');
-  // });
 
   darkMode.subscribe((d) => {
     localStorage.setItem('darkMode', d ? 'dark' : 'light');
@@ -21,10 +16,7 @@
 
 </script>
 
-<button
-  class="m-3 ml-0 px-3 py-2 shadow rounded focus:ring dark:bg-gray-700 dark:hover:bg-gray-800"
-  on:click={toggleDarkMode}
->
+<button on:click={toggleDarkMode}>
   {#if $darkMode}
     <svg
       xmlns="http://www.w3.org/2000/svg"

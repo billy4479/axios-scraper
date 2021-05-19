@@ -1,0 +1,25 @@
+.stuff {
+  @apply m-5 p-5 pt-3 pb-3 rounded shadow bg-gray-100;
+}
+
+input[type='submit'],
+button {
+  @apply m-3 ml-0 px-3 py-2 shadow rounded;
+
+  &::focus {
+    focus: ring;
+  }
+}
+
+.dark {
+  @apply bg-gray-800 text-gray-100;
+
+  .stuff {
+    @apply bg-gray-900;
+  }
+
+  input[type='submit'],
+  button {
+    @apply bg-gray-700 hover:bg-gray-800;
+  }
+}
