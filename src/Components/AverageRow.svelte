@@ -12,7 +12,8 @@
     let valueSum = 0;
 
     $average.forEach((v) => {
-      markSum += v.mark * v.value;
+      let tmpMark = Number.isNaN(v.mark) ? 0 : v.mark;
+      markSum += tmpMark * v.value;
       valueSum += v.value;
     });
 

@@ -29,7 +29,7 @@
 
     return new MarkAndValue(
       Math.round((markSum / valueSum) * 100) / 100,
-      makesAverage ? 100 : 0
+      makesAverage && valueSum !== 0 ? 100 : 0
     );
   }
 

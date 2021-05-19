@@ -8,7 +8,7 @@
   const actualValue = mark.value;
 
   function toggleMakesAverage() {
-    mark.value = mark.value === actualValue ? 0 : actualValue;
+    if (showValue) mark.value = mark.value === actualValue ? 0 : actualValue;
   }
 
 </script>
