@@ -14,7 +14,7 @@
 
 </script>
 
-<div class="rounded shadow p-10 bg-gray-200 dark:bg-gray-900">
+<div class="stuff">
   <table>
     <thead>
       <th>Materia</th>
@@ -36,6 +36,11 @@
 
   div {
     overflow: auto;
+  }
+
+  th {
+    border: solid 1px gray;
+    padding: 1em;
   }
 
 </style>

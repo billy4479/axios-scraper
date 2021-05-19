@@ -33,7 +33,6 @@
   <input
     type="submit"
     value="Calcola Media"
-    class="stuff"
     on:click|preventDefault={onSubmit}
   />
 

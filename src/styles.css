@@ -1,5 +1,5 @@
 .stuff {
-  @apply m-5 p-5 pt-3 pb-3 rounded shadow bg-gray-100;
+  @apply m-5 p-5 pt-3 pb-3 rounded shadow;
 }
 
 input[type='submit'],

@@ -21,8 +21,14 @@
 
 <tr>
   <td class="subject">{subject}</td>
-  <td class="average">
-    <Mark mark={new MarkAndValue(computeAverage(), 100)} showValue={false} />
+  <td>
+    <div class="average">
+      <Mark
+        mark={new MarkAndValue(computeAverage(), 100)}
+        showValue={false}
+        expand={true}
+      />
+    </div>
   </td>
   <td class="mark-container">
     {#each marks as m}
@@ -49,6 +55,12 @@
     padding-right: 1em;
     border: solid 1px gray;
     text-align: left;
+  }
+
+  .average {
+    display: flex;
+    flex-direction: row;
+    place-content: center;
   }
 
 </style>
