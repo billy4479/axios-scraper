@@ -3,6 +3,7 @@
   import MarkAndValue from '../Models/markAndValue';
   import Mark from './Mark.svelte';
   import { writable } from 'svelte/store';
+  import PlusButton from './PlusButton.svelte';
 
   export let marks: MarkAndValue[];
   export let subject: string;
@@ -33,6 +34,12 @@
     );
   }
 
+  function addMarkHandler(event: CustomEvent<MarkAndValue>) {
+    marksStore.update((v) => {
+      return [...v, event.detail];
+    });
+  }
+
 </script>
 
 <tr>
@@ -46,6 +53,7 @@
     {#each $marksStore as m}
       <Mark bind:mark={m} />
     {/each}
+    <PlusButton on:addMark={addMarkHandler} sub={subject} />
   </td>
 </tr>
 

@@ -18,7 +18,7 @@
 
 <style global type="postcss">
   body {
-    width: 85%;
+    width: 75%;
     margin: 5% auto;
     text-align: center;
   }

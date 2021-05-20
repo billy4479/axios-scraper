@@ -15,12 +15,13 @@
 </script>
 
 <div
-  class:red={mark.mark < 6}
+  class:red={mark.mark < 6 && !mark.wasAddedLater}
   class="text-gray-100"
   class:expand={isAverage}
-  class:no-average={mark.value === 0}
+  class:blue={mark.value === 0 && !mark.wasAddedLater}
   on:click={toggleMakesAverage}
   class:select-none={!isAverage}
+  class:purple={mark.wasAddedLater}
 >
   {#if !isAverage}
     {mark.mark}
@@ -33,8 +34,8 @@
 
 <style>
   div {
-    height: 3em;
-    width: 3em;
+    height: 3rem;
+    width: 3rem;
     @apply bg-green-600;
     margin: 0;
     display: grid;
@@ -47,13 +48,17 @@
     @apply bg-red-600;
   }
 
+  .purple {
+    @apply bg-purple-600;
+  }
+
   .expand {
     width: 100%;
     font-weight: bold;
     @apply underline;
   }
 
-  .no-average {
+  .blue {
     @apply bg-blue-700;
   }
 

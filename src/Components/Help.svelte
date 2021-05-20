@@ -29,8 +29,11 @@
         <li>Clicca su "Calcola Media"!</li>
       </ol>
     {:else if what === 'marks'}
-      Clicca su un voto per rendere il suo valore 0%. <br />
-      Legenda: <br />
+      <p>Clicca su un voto per rendere il suo valore 0%.</p>
+      <p>
+        Clicca sul '+' per aggiungere un voto e vedere come cambia la media.
+      </p>
+      <p>Legenda:</p>
       <ul>
         <li>
           <div class="bg-red-600 box" />
@@ -43,6 +46,10 @@
         <li>
           <div class="bg-blue-700 box" />
           : Non fa media
+        </li>
+        <li>
+          <div class="bg-purple-600 box" />
+          : Aggiunto successivamente
         </li>
       </ul>
     {/if}

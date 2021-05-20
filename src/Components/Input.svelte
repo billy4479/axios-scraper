@@ -24,7 +24,7 @@
     bind:value={html}
     name="html-input"
     cols="10"
-    rows="10"
+    rows="5"
     class="stuff"
     placeholder="Incolla l'HTML qui..."
     autocomplete="off"
@@ -43,11 +43,10 @@
   form {
     text-align: center;
     margin: 0 auto;
-    width: 100%;
   }
 
   textarea {
-    width: 50%;
+    width: 100%;
     resize: none;
     overflow: auto;
     margin: 2.5rem auto;
@@ -55,12 +54,14 @@
   }
 
   div {
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     place-content: center;
   }
 
   input[type='file'] {
+    width: 100%;
     display: block;
     margin: 0;
   }

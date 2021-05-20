@@ -9,3 +9,4 @@ export const darkMode = writable<boolean>(
   localStorage.getItem('darkMode') === 'dark'
 );
 export const average = writable<Map<string, MarkAndValue>>(new Map());
+export const isOverlayShown = writable(false);

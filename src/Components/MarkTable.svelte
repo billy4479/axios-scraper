@@ -45,6 +45,7 @@
   }
 
   div {
+    margin: 0;
     overflow: auto;
   }
 
