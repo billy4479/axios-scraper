@@ -10,3 +10,4 @@ export const darkMode = writable<boolean>(
 );
 export const average = writable<Map<string, MarkAndValue>>(new Map());
 export const isOverlayShown = writable(false);
+export const roundAverage = writable(false);

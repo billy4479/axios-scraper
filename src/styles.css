@@ -1,11 +1,15 @@
 .stuff {
-  @apply m-5 p-5 pt-3 pb-3 rounded shadow;
+  @apply m-5 px-3 py-2 rounded shadow;
+}
+
+.light-stuff {
+  @apply m-5 px-3 py-2 rounded shadow;
 }
 
 input[type='file']::file-selector-button {
   border: none;
   transition-duration: 200ms;
-  @apply m-3 ml-0 px-3 py-2 shadow rounded;
+  @apply m-3 px-3 py-2 shadow rounded;
 }
 
 .dark input[type='file']::file-selector-button {
@@ -15,7 +19,7 @@ input[type='file']::file-selector-button {
 input[type='submit'],
 input[type='number'],
 button {
-  @apply m-3 ml-0 px-3 py-2 shadow rounded;
+  @apply m-3 px-3 py-2 shadow rounded;
 
   &::focus {
     focus: ring;
@@ -24,6 +28,10 @@ button {
 
 .dark {
   @apply bg-gray-800 text-gray-100;
+
+  .light-stuff {
+    @apply bg-gray-700;
+  }
 
   .stuff {
     @apply bg-gray-900;

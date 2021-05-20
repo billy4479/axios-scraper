@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { average } from '../store';
+  import { average, roundAverage } from '../store';
   import MarkAndValue from '../Models/markAndValue';
   import Mark from './Mark.svelte';
   import { writable } from 'svelte/store';
@@ -13,6 +13,9 @@
   let av = writable<MarkAndValue>(computeAverage());
 
   marksStore.subscribe(() => {
+    av.set(computeAverage());
+  });
+  roundAverage.subscribe(() => {
     av.set(computeAverage());
   });
   av.subscribe((v) => {
@@ -29,7 +32,9 @@
     });
 
     return new MarkAndValue(
-      Math.round((markSum / valueSum) * 100) / 100,
+      $roundAverage
+        ? Math.round(markSum / valueSum)
+        : Math.round((markSum / valueSum) * 100) / 100,
       makesAverage && valueSum !== 0 ? 100 : 0
     );
   }

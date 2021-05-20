@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { roundAverage } from '../store';
   import type MarkAndValue from '../Models/markAndValue';
   import Overlay from './Overlay.svelte';
 
@@ -41,6 +42,8 @@
     {mark.mark}
     <br />
     {mark.value}%
+  {:else if $roundAverage}
+    {mark.mark}
   {:else}
     {mark.mark.toFixed(2)}
   {/if}

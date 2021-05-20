@@ -3,7 +3,7 @@
   import TableRow from './TableRow.svelte';
   import AverageRow from './AverageRow.svelte';
   import Help from './Help.svelte';
-  import { average, data } from '../store';
+  import { average, data, roundAverage } from '../store';
 
   const markMap = new Map<string, MarkAndValue[]>();
 
@@ -36,6 +36,11 @@
     </tbody>
   </table>
 </div>
+
+<div class="checkbox-container light-stuff">
+  <label for="round-averages">Arrotonda le medie</label>
+  <input type="checkbox" name="round-averages" bind:checked={$roundAverage} />
+</div>
 <button on:click={reset}>Reset</button>
 <Help what="marks" />
 
@@ -53,5 +58,21 @@
     border: solid 1px gray;
     padding: 1em;
   }
+
+  .checkbox-container {
+    display: grid;
+    width: 25%;
+    margin: 1rem auto 0 auto;
+    grid-template: 2rem / 3fr 1fr;
+    place-items: center;
+  }
+
+  .checkbox-container label {
+    @apply my-4;
+    @apply mr-3;
+  }
+
+  /* .checkbox-container input {
+  } */
 
 </style>
