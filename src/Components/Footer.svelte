@@ -3,7 +3,7 @@
 
 <div class="footer-wrapper w-4/5 max-w-6xl m-auto text-center dark:text-white">
   <a
-    href="https://github.com/billy4479/nomenclinator"
+    href="https://github.com/billy4479/axios-scraper"
     target="_blank"
     rel="noreferrer noopener"
   >
