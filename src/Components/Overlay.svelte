@@ -53,7 +53,7 @@
   >
     <h2 class="text-3xl m-10">
       {#if existingMark === null}
-        Inserisci un voto in {sub}
+        Inserisci un voto in <br /> {sub}
       {:else}
         Modifica voto
       {/if}
@@ -112,13 +112,13 @@
     right: 0;
     display: grid;
     place-items: center;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.2);
     z-index: 2;
   }
 
   .content {
-    padding-left: 7rem;
-    padding-right: 7rem;
+    /* padding-left: 7rem;
+    padding-right: 7rem; */
     position: relative;
   }
 
@@ -148,8 +148,8 @@
   .close-button {
     position: absolute;
     padding: 0;
-    top: 1rem;
-    right: 1rem;
+    top: 0.5rem;
+    right: 0.5rem;
     width: 2rem;
     height: 2rem;
     display: grid;

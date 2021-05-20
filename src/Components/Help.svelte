@@ -68,7 +68,9 @@
   }
 
   .container {
+    margin: 0 auto;
     @apply pl-10;
+    @apply mb-10;
   }
 
   .box {

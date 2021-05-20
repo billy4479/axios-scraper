@@ -37,7 +37,12 @@
   </table>
 </div>
 
-<div class="checkbox-container light-stuff">
+<div
+  class="checkbox-container light-stuff"
+  on:click={() => {
+    roundAverage.update((v) => !v);
+  }}
+>
   <label for="round-averages">Arrotonda le medie</label>
   <input type="checkbox" name="round-averages" bind:checked={$roundAverage} />
 </div>
@@ -61,10 +66,11 @@
 
   .checkbox-container {
     display: grid;
-    width: 25%;
+    width: fit-content;
     margin: 1rem auto 0 auto;
     grid-template: 2rem / 3fr 1fr;
     place-items: center;
+    cursor: pointer;
   }
 
   .checkbox-container label {

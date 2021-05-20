@@ -2,13 +2,8 @@
   import { darkMode, isOverlayShown } from '../store';
   import Overlay from './Overlay.svelte';
 
-  let showPlus = false;
   let showThisOverlay = false;
   export let sub: string;
-
-  isOverlayShown.subscribe((v) => {
-    if (v) showPlus = false;
-  });
 
 </script>
 
@@ -17,12 +12,6 @@
 {/if}
 <div
   class="svg-container"
-  on:mouseleave={() => {
-    showPlus = false;
-  }}
-  on:mouseenter={() => {
-    showPlus = true;
-  }}
   on:click={() => {
     if (!$isOverlayShown) showThisOverlay = true;
   }}
@@ -37,7 +26,6 @@
     viewBox="0 0 45.402 45.402"
     style="enable-background:new 0 0 45.402 45.402;"
     xml:space="preserve"
-    class:show={showPlus}
   >
     <path
       class:dark={$darkMode}
@@ -47,10 +35,6 @@
 </div>
 
 <style>
-  .show {
-    opacity: 1;
-  }
-
   .svg-container {
     display: grid;
     place-items: center;
@@ -62,7 +46,6 @@
   svg {
     width: 75%;
     height: 75%;
-    opacity: 0;
     transition-duration: 300ms;
   }
 

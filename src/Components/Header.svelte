@@ -5,8 +5,8 @@
 
 </script>
 
-<header class="mb-20">
-  <h1 class="text-6xl text-red-600 mb-5">{title}</h1>
+<header class="mb-2">
+  <h1 class="text-6xl text-red-600 mb-2">{title}</h1>
   <DarkModeToggle />
 </header>
 
