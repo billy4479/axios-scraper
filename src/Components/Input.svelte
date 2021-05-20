@@ -6,7 +6,7 @@
   let file: FileList;
 
   async function onSubmit() {
-    if (file.length > 0) {
+    if (file && file.length > 0) {
       scrape(await file.item(0).text());
     } else {
       scrape(html);

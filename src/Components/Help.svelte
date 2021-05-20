@@ -7,6 +7,12 @@
     showHelp = !showHelp;
   }
 
+  async function copyJS() {
+    await navigator.clipboard.writeText(
+      `copyButton.innerText='Cliccami!';document.getElementsByTagName('ul')[1].appendChild(copyButton);copyButton.addEventListener('click', ()=>{navigator.clipboard.writeText(document.getElementsByTagName('html')[0].outerHTML); copyButton.innerText='Copiato!'})`
+    );
+  }
+
 </script>
 
 <button on:click|preventDefault={toggleHelp}>Help</button>
@@ -28,6 +34,11 @@
         </li>
         <li>Clicca su "Calcola Media"!</li>
       </ol>
+      <!-- Se non riesci a scaricare il file clicca
+      <div class="inline text-blue-500 cursor-pointer" on:click={copyJS}>
+        qui
+      </div>
+      . -->
     {:else if what === 'marks'}
       <ul class="list-disc">
         <li>Clicca su un voto per rendere il suo valore 0%.</li>
