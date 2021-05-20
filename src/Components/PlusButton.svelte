@@ -1,6 +1,6 @@
 <script lang="ts">
   import { darkMode, isOverlayShown } from '../store';
-  import AddMarkOverlay from './AddMarkOverlay.svelte';
+  import Overlay from './Overlay.svelte';
 
   let showPlus = false;
   let showThisOverlay = false;
@@ -13,7 +13,7 @@
 </script>
 
 {#if showThisOverlay}
-  <AddMarkOverlay on:addMark {sub} bind:toggle={showThisOverlay} />
+  <Overlay on:addMark {sub} bind:toggle={showThisOverlay} />
 {/if}
 <div
   class="svg-container"
@@ -67,11 +67,11 @@
   }
 
   path.dark {
-    fill: white;
+    fill: theme('colors.white');
   }
 
   path {
-    fill: black;
+    fill: theme('colors.gray.600');
   }
 
 </style>

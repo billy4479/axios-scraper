@@ -40,6 +40,22 @@
     });
   }
 
+  function editMarkHandler(
+    event: CustomEvent<{ original: MarkAndValue; new: MarkAndValue }>
+  ) {
+    marksStore.update((v) => {
+      v[v.indexOf(event.detail.original)] = event.detail.new;
+      return v;
+    });
+  }
+
+  function deleteMarkHandler(event: CustomEvent<MarkAndValue>) {
+    marksStore.update((v) => {
+      v.splice(v.indexOf(event.detail), 1);
+      return v;
+    });
+  }
+
 </script>
 
 <tr>
@@ -51,7 +67,11 @@
   </td>
   <td class="mark-container">
     {#each $marksStore as m}
-      <Mark bind:mark={m} />
+      <Mark
+        bind:mark={m}
+        on:deleteMark={deleteMarkHandler}
+        on:editMark={editMarkHandler}
+      />
     {/each}
     <PlusButton on:addMark={addMarkHandler} sub={subject} />
   </td>
@@ -73,7 +93,7 @@
   .subject {
     padding-left: 1em;
     padding-right: 1em;
-    border: solid 1px gray;
+    border: solid 1px theme('colors.gray.500');
     text-align: left;
   }
 

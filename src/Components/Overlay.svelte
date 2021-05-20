@@ -3,20 +3,45 @@
   import { darkMode, isOverlayShown } from '../store';
   import { createEventDispatcher, onMount } from 'svelte';
 
-  const dispatch = createEventDispatcher<{ addMark: MarkAndValue }>();
+  const dispatch =
+    createEventDispatcher<{
+      addMark: MarkAndValue;
+      deleteMark: MarkAndValue;
+      editMark: { original: MarkAndValue; new: MarkAndValue };
+    }>();
   let mark: number = 10;
   let value: number = 100;
   export let sub: string;
   export let toggle: boolean;
+  export let existingMark: MarkAndValue | null = null;
 
   onMount(() => {
     isOverlayShown.set(true);
+    if (existingMark !== null) {
+      mark = existingMark.mark;
+      value = existingMark.value;
+    }
   });
 
-  function submitMark() {
-    dispatch('addMark', new MarkAndValue(mark, value, true));
-    isOverlayShown.set(false);
+  function closeThis(): void {
     toggle = false;
+    isOverlayShown.set(false);
+  }
+
+  function submitMark() {
+    if (existingMark === null)
+      dispatch('addMark', new MarkAndValue(mark, value, true));
+    else
+      dispatch('editMark', {
+        original: existingMark,
+        new: new MarkAndValue(mark, value, true),
+      });
+    closeThis();
+  }
+
+  function deleteMark() {
+    dispatch('deleteMark', existingMark!);
+    closeThis();
   }
 
 </script>
@@ -26,14 +51,15 @@
     class="content stuff bg-white dark:bg-gray-800"
     on:submit|preventDefault={submitMark}
   >
-    <h2 class="text-3xl m-10">Inserisci un voto in {sub}</h2>
+    <h2 class="text-3xl m-10">
+      {#if existingMark === null}
+        Inserisci un voto in {sub}
+      {:else}
+        Modifica voto
+      {/if}
+    </h2>
 
-    <button
-      on:click={() => {
-        toggle = false;
-        isOverlayShown.set(false);
-      }}
-    >
+    <button class="close-button" on:click={closeThis}>
       <svg
         height="329pt"
         viewBox="0 0 329.26933 329"
@@ -67,7 +93,13 @@
       />
     </div>
 
-    <input type="submit" value="Inserisci" />
+    <input
+      type="submit"
+      value={existingMark === null ? 'Inserisci' : 'Modifica'}
+    />
+    {#if existingMark !== null}
+      <button class="delete-button" on:click={deleteMark}>Cancella</button>
+    {/if}
   </form>
 </div>
 
@@ -91,8 +123,14 @@
   }
 
   input[type='submit'] {
-    display: block;
-    margin: 2rem auto;
+    display: inline;
+    margin: 2rem 1rem;
+    @apply bg-green-600;
+    @apply text-white;
+  }
+
+  input[type='submit']:hover {
+    @apply bg-green-800;
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -107,7 +145,7 @@
     -moz-appearance: textfield;
   }
 
-  button {
+  .close-button {
     position: absolute;
     padding: 0;
     top: 1rem;
@@ -131,6 +169,17 @@
     display: grid;
     grid-template: 1fr / 1fr 2fr;
     align-items: center;
+  }
+
+  .delete-button {
+    @apply text-white;
+    @apply bg-red-500;
+    display: inline;
+    margin: 2rem 1rem;
+  }
+
+  .delete-button:hover {
+    @apply bg-red-800;
   }
 
 </style>

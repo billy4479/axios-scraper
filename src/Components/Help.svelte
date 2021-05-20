@@ -29,11 +29,17 @@
         <li>Clicca su "Calcola Media"!</li>
       </ol>
     {:else if what === 'marks'}
-      <p>Clicca su un voto per rendere il suo valore 0%.</p>
-      <p>
-        Clicca sul '+' per aggiungere un voto e vedere come cambia la media.
-      </p>
-      <p>Legenda:</p>
+      <ul class="list-disc">
+        <li>Clicca su un voto per rendere il suo valore 0%.</li>
+        <li>
+          Clicca sul '+' per aggiungere un voto e vedere come cambia la media.
+        </li>
+        <li>
+          Cliccando su uno di questi si potrà modificare il voto, il valore o
+          cancellare.
+        </li>
+      </ul>
+      Legenda:
       <ul>
         <li>
           <div class="bg-red-600 box" />
