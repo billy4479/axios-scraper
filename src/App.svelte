@@ -5,22 +5,32 @@
   import { data } from './store';
   import './tailwind.css';
   import './styles.css';
+  import Footer from './Components/Footer.svelte';
 
 </script>
 
-<Header title="Media" />
+<main>
+  <Header title="Media" />
 
-{#if $data.length === 0}
-  <Input />
-{:else}
-  <MarkTable />
-{/if}
+  {#if $data.length === 0}
+    <Input />
+  {:else}
+    <MarkTable />
+  {/if}
+</main>
+
+<Footer />
 
 <style global type="postcss">
   body {
     width: 75%;
     margin: 5% auto;
     text-align: center;
+  }
+
+  main {
+    min-height: calc(100vh - 175px);
+    min-width: 300px;
   }
 
   * {
