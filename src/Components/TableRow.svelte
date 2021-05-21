@@ -4,9 +4,12 @@
   import Mark from './Mark.svelte';
   import { writable } from 'svelte/store';
   import PlusButton from './PlusButton.svelte';
+  import { createEventDispatcher } from 'svelte';
+  import CrossSVG from '../SVG/Cross.svelte';
 
   export let marks: MarkAndValue[];
   export let subject: string;
+  export let wasAddedLater: boolean = false;
   let makesAverage: boolean = true;
 
   let marksStore = writable(marks);
@@ -35,7 +38,8 @@
       $roundAverage
         ? Math.round(markSum / valueSum)
         : Math.round((markSum / valueSum) * 100) / 100,
-      makesAverage && valueSum !== 0 ? 100 : 0
+      makesAverage && valueSum !== 0 ? 100 : 0,
+      wasAddedLater
     );
   }
 
@@ -61,10 +65,23 @@
     });
   }
 
+  const dispatch = createEventDispatcher<{ deleteSubject: string }>();
+
+  function handleDeleteSubject() {
+    dispatch('deleteSubject', subject);
+  }
+
 </script>
 
 <tr>
-  <td class="subject">{subject}</td>
+  <td class="subject">
+    {subject}
+    {#if wasAddedLater}
+      <button on:click={handleDeleteSubject}>
+        <CrossSVG />
+      </button>
+    {/if}
+  </td>
   <td>
     <div class="average">
       <Mark bind:mark={$av} isAverage={true} />
@@ -100,12 +117,19 @@
     padding-right: 1em;
     border: solid 1px theme('colors.gray.500');
     text-align: left;
+    position: relative;
   }
 
   .average {
     display: flex;
     flex-direction: row;
     place-content: center;
+  }
+
+  button {
+    position: absolute;
+    right: 0.5rem;
+    top: -5%;
   }
 
 </style>

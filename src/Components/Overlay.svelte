@@ -1,19 +1,22 @@
 <script lang="ts">
   import MarkAndValue from '../Models/markAndValue';
-  import { darkMode, isOverlayShown } from '../store';
+  import { isOverlayShown } from '../store';
   import { createEventDispatcher, onMount } from 'svelte';
+  import CrossSVG from '../SVG/Cross.svelte';
 
   const dispatch =
     createEventDispatcher<{
       addMark: MarkAndValue;
       deleteMark: MarkAndValue;
       editMark: { original: MarkAndValue; new: MarkAndValue };
+      addSubject: string;
     }>();
   let mark: number = 10;
   let value: number = 100;
-  export let sub: string;
+  export let sub: string = '';
   export let toggle: boolean;
   export let existingMark: MarkAndValue | null = null;
+  export let addSubject = false;
 
   onMount(() => {
     isOverlayShown.set(true);
@@ -29,7 +32,9 @@
   }
 
   function submitMark() {
-    if (existingMark === null)
+    if (addSubject) {
+      dispatch('addSubject', sub);
+    } else if (existingMark === null)
       dispatch('addMark', new MarkAndValue(mark, value, true));
     else
       dispatch('editMark', {
@@ -52,7 +57,9 @@
     on:submit|preventDefault={submitMark}
   >
     <h2 class="text-3xl m-10">
-      {#if existingMark === null}
+      {#if addSubject}
+        Inserisci una nuova materia
+      {:else if existingMark === null}
         Inserisci un voto in <br /> {sub}
       {:else}
         Modifica voto
@@ -60,37 +67,38 @@
     </h2>
 
     <button class="close-button" on:click={closeThis}>
-      <svg
-        height="329pt"
-        viewBox="0 0 329.26933 329"
-        width="329pt"
-        xmlns="http://www.w3.org/2000/svg"
-        ><path
-          class:dark={$darkMode}
-          d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
-        /></svg
-      >
+      <CrossSVG />
     </button>
 
     <div class="input-container">
-      <label for="mark">Voto:</label>
-      <input
-        name="mark"
-        type="number"
-        max="10"
-        min="0"
-        step="0.01"
-        bind:value={mark}
-      />
-      <label for="value">Valore:</label>
-      <input
-        name="value"
-        type="number"
-        max="100"
-        min="0"
-        step="0.01"
-        bind:value
-      />
+      {#if !addSubject}
+        <label for="mark">Voto:</label>
+        <input
+          name="mark"
+          type="number"
+          max="10"
+          min="0"
+          step="0.01"
+          bind:value={mark}
+        />
+        <label for="value">Valore:</label>
+        <input
+          name="value"
+          type="number"
+          max="100"
+          min="0"
+          step="0.01"
+          bind:value
+        />{:else}
+        <label for="sub">Nome materia:</label>
+        <input
+          name="sub"
+          type="text"
+          autocomplete="off"
+          bind:value={sub}
+          placeholder="Es: Condotta, Matematica..."
+        />
+      {/if}
     </div>
 
     <input
@@ -154,15 +162,6 @@
     height: 2rem;
     display: grid;
     place-items: center;
-  }
-
-  svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  path.dark {
-    fill: white;
   }
 
   .input-container {

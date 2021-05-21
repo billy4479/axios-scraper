@@ -11,7 +11,7 @@
   let showThisOverlay: boolean = false;
 
   function handleClick() {
-    if (mark.wasAddedLater) {
+    if (mark.wasAddedLater && !isAverage) {
       showThisOverlay = true;
       return;
     }

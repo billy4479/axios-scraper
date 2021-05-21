@@ -4,19 +4,50 @@
   import AverageRow from './AverageRow.svelte';
   import Help from './Help.svelte';
   import { average, data, roundAverage } from '../store';
+  import AddSubjectRow from './AddSubjectRow.svelte';
+  import { writable } from 'svelte/store';
 
-  const markMap = new Map<string, MarkAndValue[]>();
+  const markMap = writable(new Map<string, MarkAndValue[]>());
+  const wasAddedLaterStore = writable<string[]>([]);
 
-  $data.forEach((v) => {
-    const m = v.mark;
-    const va = v.value;
-    if (!markMap.has(v.subject)) markMap.set(v.subject, []);
-    markMap.get(v.subject).push(new MarkAndValue(m, va));
+  markMap.update((mm) => {
+    $data.forEach((v) => {
+      const m = v.mark;
+      const va = v.value;
+      if (!mm.has(v.subject)) mm.set(v.subject, []);
+      mm.get(v.subject).push(new MarkAndValue(m, va));
+    });
+    return mm;
   });
 
   function reset() {
     data.set([]);
     average.set(new Map());
+  }
+
+  function handleAddSubject(event: CustomEvent<string>) {
+    markMap.update((mm) => {
+      mm.set(event.detail, []);
+      return mm;
+    });
+    wasAddedLaterStore.update((wals) => {
+      wals.push(event.detail);
+      return wals;
+    });
+  }
+
+  function handleDeleteSubject(event: CustomEvent<string>) {
+    markMap.update((mm) => {
+      if (mm.has(event.detail)) {
+        mm.delete(event.detail);
+      }
+      return mm;
+    });
+    wasAddedLaterStore.update((wals) => {
+      if (wals.includes(event.detail))
+        wals.splice(wals.indexOf(event.detail), 1);
+      return wals;
+    });
   }
 
 </script>
@@ -29,9 +60,15 @@
       <th>Voti</th>
     </thead>
     <tbody>
-      {#each Array.from(markMap.keys()) as sub}
-        <TableRow subject={sub} marks={markMap.get(sub)} />
+      {#each Array.from($markMap.keys()) as sub}
+        <TableRow
+          subject={sub}
+          marks={$markMap.get(sub)}
+          wasAddedLater={$wasAddedLaterStore.includes(sub)}
+          on:deleteSubject={handleDeleteSubject}
+        />
       {/each}
+      <AddSubjectRow on:addSubject={handleAddSubject} />
       <AverageRow />
     </tbody>
   </table>
@@ -60,7 +97,7 @@
   }
 
   th {
-    border: solid 1px gray;
+    border: solid 1px theme('colors.gray.500');
     padding: 1em;
   }
 

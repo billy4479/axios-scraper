@@ -34,7 +34,6 @@
     </div>
   </td>
   <td class="mark-container" />
-  <td />
 </tr>
 
 <style>
@@ -55,6 +54,7 @@
     padding-right: 1em;
     border: solid 1px gray;
     text-align: left;
+    font-weight: bold;
   }
 
   .average {
