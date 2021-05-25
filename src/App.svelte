@@ -29,7 +29,7 @@
   }
 
   main {
-    min-height: calc(100vh - 175px);
+    min-height: calc(100vh - 225px);
     min-width: 300px;
   }
 

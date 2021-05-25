@@ -103,7 +103,7 @@
 
     <input
       type="submit"
-      value={existingMark === null ? 'Inserisci' : 'Modifica'}
+      value={existingMark === null ? 'Inserisci' : 'Conferma'}
     />
     {#if existingMark !== null}
       <button class="delete-button" on:click={deleteMark}>Cancella</button>

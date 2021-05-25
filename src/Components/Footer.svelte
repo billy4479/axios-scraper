@@ -1,7 +1,9 @@
 <script lang="ts">
 </script>
 
-<div class="footer-wrapper w-4/5 max-w-6xl m-auto text-center dark:text-white">
+<div
+  class="footer-wrapper w-4/5 max-w-6xl m-auto mt-3 text-center dark:text-white"
+>
   <a
     href="https://github.com/billy4479/axios-scraper"
     target="_blank"
