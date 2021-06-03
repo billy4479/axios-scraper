@@ -15,7 +15,7 @@ export default function scrape(html: string) {
     subjects.add(sub);
 
     const markTR = tr.children('td:nth-child(4)');
-    let mark = parseFloat(markTR.text());
+    let mark = parseFloat(markTR.text().replace(',', '.'));
     if (Number.isNaN(mark)) {
       mark = 0;
     }

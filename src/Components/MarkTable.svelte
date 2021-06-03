@@ -15,7 +15,7 @@
       const m = v.mark;
       const va = v.value;
       if (!mm.has(v.subject)) mm.set(v.subject, []);
-      mm.get(v.subject).push(new MarkAndValue(m, va));
+      mm.set(v.subject, [new MarkAndValue(m, va), ...mm.get(v.subject)]);
     });
     return mm;
   });
